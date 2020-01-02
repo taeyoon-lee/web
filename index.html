@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p>This is an index.html file for the display purpose only</p>
+  <h6>This is an index.html file for the display purpose only</h6>
   <input type="button" value='night' onclick="
   document.querySelector('body').style.backgroundColor='black';
   document.querySelector('body').style.color='white'">
@@ -15,6 +15,35 @@
   <input type="button" value='day' onclick="
   document.querySelector('body').style.backgroundColor='white';
   document.querySelector('body').style.color='black'">
+  <br>
+
+  <h2>book finder</h2>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous">
+  </script>
+  <input id="nameofBook" value="" type="text">
+  <button id="search"> 검색 </button>
+  <p></p>
+  <script>
+  $(document).ready(function(){$('#search').click(function(){
+    $.ajax({
+      method: "GET",
+      url: "https://dapi.kakao.com/v3/search/book?target=title",
+      data: {query:$('#nameofBook').val() },
+      headers: {Authorization:"KakaoAK 7bb6204e2afc649764fbbe5ce0b2a172"}
+    }).done(function(msg) {
+
+      $('p').append('<strong>'+msg.documents[0]['title']+'</strong>)')
+      $('p').append('<img src="'+msg.documents[0]['thumbnail']+'"/>')
+    });
+  });
+  });
+
+  </script>
+
+
 
 </body>
 </html>
